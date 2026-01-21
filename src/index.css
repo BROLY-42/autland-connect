@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 30% 98%;
+    --foreground: 220 40% 13%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 40% 13%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 40% 13%;
+
+    --primary: 217 91% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 20% 96%;
+    --secondary-foreground: 220 40% 13%;
+
+    --muted: 220 20% 94%;
+    --muted-foreground: 220 15% 50%;
+
+    --accent: 43 80% 55%;
+    --accent-foreground: 220 40% 13%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 20% 90%;
+    --input: 220 20% 90%;
+    --ring: 217 91% 40%;
+
+    --radius: 1rem;
+
+    /* Custom Autland tokens */
+    --gold: 43 80% 55%;
+    --gold-light: 43 70% 70%;
+    --gold-dark: 43 85% 45%;
+    --blue-deep: 217 91% 25%;
+    --blue-light: 217 80% 60%;
+    
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(43 80% 55%) 0%, hsl(43 85% 45%) 100%);
+    --gradient-blue: linear-gradient(135deg, hsl(217 91% 40%) 0%, hsl(217 91% 25%) 100%);
+    --gradient-premium: linear-gradient(135deg, hsl(217 91% 40%) 0%, hsl(217 91% 30%) 50%, hsl(43 80% 55%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
+    
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(217 91% 40% / 0.15);
+    --shadow-gold: 0 4px 20px -4px hsl(43 80% 55% / 0.35);
+    --shadow-card: 0 8px 30px -8px hsl(220 40% 13% / 0.1);
+    --shadow-button: 0 4px 15px -3px hsl(217 91% 40% / 0.25);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 40% 8%;
+    --foreground: 220 20% 95%;
+
+    --card: 220 35% 12%;
+    --card-foreground: 220 20% 95%;
+
+    --popover: 220 35% 12%;
+    --popover-foreground: 220 20% 95%;
+
+    --primary: 217 80% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 30% 18%;
+    --secondary-foreground: 220 20% 95%;
+
+    --muted: 220 30% 20%;
+    --muted-foreground: 220 15% 60%;
+
+    --accent: 43 80% 55%;
+    --accent-foreground: 220 40% 8%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 30% 20%;
+    --input: 220 30% 20%;
+    --ring: 217 80% 55%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    appearance: auto;
+    -webkit-line-clamp: none;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .link-button {
+    @apply relative w-full py-4 px-6 rounded-2xl font-medium text-base
+           transition-all duration-300 ease-out
+           flex items-center justify-center gap-3
+           hover:scale-[1.02] hover:-translate-y-0.5
+           active:scale-[0.98];
+  }
+
+  .link-button-primary {
+    @apply link-button bg-primary text-primary-foreground;
+    box-shadow: var(--shadow-button);
+  }
+
+  .link-button-primary:hover {
+    box-shadow: 0 8px 25px -5px hsl(var(--primary) / 0.4);
+  }
+
+  .link-button-gold {
+    @apply link-button text-foreground font-semibold;
+    background: var(--gradient-gold);
+    box-shadow: var(--shadow-gold);
+  }
+
+  .link-button-gold:hover {
+    box-shadow: 0 8px 30px -5px hsl(var(--gold) / 0.5);
+  }
+
+  .link-button-outline {
+    @apply link-button bg-card border-2 border-primary/20 text-foreground
+           hover:border-primary/40 hover:bg-primary/5;
+    box-shadow: var(--shadow-card);
+  }
+
+  .product-card {
+    @apply bg-card rounded-2xl p-5 transition-all duration-300
+           hover:scale-[1.02] hover:-translate-y-1;
+    box-shadow: var(--shadow-card);
+  }
+
+  .product-card:hover {
+    box-shadow: 0 12px 40px -10px hsl(220 40% 13% / 0.15);
+  }
+
+  .section-title {
+    @apply text-2xl font-semibold text-foreground mb-6 flex items-center gap-2;
+  }
+
+  .gold-accent {
+    color: hsl(var(--gold-dark));
+  }
+
+  .gold-text {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    100% {
+      left: 100%;
+    }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
