@@ -10,6 +10,16 @@ import { toast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import productsService from "@/lib/products";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
   login as doLogin,
   logout as doLogout,
   isAuthenticated,
@@ -214,7 +224,7 @@ const Admin = () => {
         <section className="fade-in">
           <div className="flex items-center justify-between mb-4">
             <h2 className="section-title justify-center">
-              <span>Área administrativa (oculta)</span>
+              <span>Area administrativa (oculta)</span>
             </h2>
             <div className="flex gap-2 items-center">
               <button
@@ -259,7 +269,7 @@ const Admin = () => {
 
                 <div>
                   <label className="block text-sm font-medium mb-1">
-                    Senha atual
+                    Senha atual (para confirmar)
                   </label>
                   <input
                     type="password"
@@ -271,7 +281,7 @@ const Admin = () => {
 
                 <div>
                   <label className="block text-sm font-medium mb-1">
-                    Nova senha
+                    Nova senha (opcional)
                   </label>
                   <input
                     type="password"
@@ -293,8 +303,10 @@ const Admin = () => {
                   />
                 </div>
 
-                <div className="flex gap-2 justify-center">
-                  <button className="btn btn-primary">Atualizar</button>
+                <div className="flex gap-2">
+                  <button type="submit" className="btn btn-primary">
+                    Salvar credenciais
+                  </button>
                 </div>
               </form>
             </div>
@@ -390,6 +402,47 @@ const Admin = () => {
         </section>
 
         <Footer />
+
+        <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                {confirmMeta.type === "remove"
+                  ? "Remover Produto"
+                  : "Resetar Produtos"}
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                {confirmMeta.type === "remove"
+                  ? `Tem certeza que deseja remover "${confirmMeta.name}"? Esta ação não pode ser desfeita.`
+                  : "Tem certeza que deseja resetar todos os produtos para os padrões? Todos os produtos atuais serão perdidos."}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  if (confirmMeta.type === "remove" && confirmMeta.id) {
+                    removeProduct(confirmMeta.id);
+                    toast({
+                      title: "Produto removido",
+                      description: confirmMeta.name,
+                    });
+                  } else if (confirmMeta.type === "reset") {
+                    resetProducts();
+                    toast({
+                      title: "Produtos resetados",
+                      description: "Produtos restaurados aos padrões.",
+                    });
+                  }
+                  setConfirmOpen(false);
+                  setConfirmMeta({ type: "none" });
+                }}
+              >
+                {confirmMeta.type === "remove" ? "Remover" : "Resetar"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </main>
     </div>
   );

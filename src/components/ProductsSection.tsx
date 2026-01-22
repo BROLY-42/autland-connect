@@ -1,5 +1,5 @@
 import { ShoppingBag } from "lucide-react";
-import ProductCard from "./ProductCard";
+import ProductCard, { ProductCardProps } from "./ProductCard";
 import useProducts from "@/hooks/useProducts";
 
 const ProductsSection = () => {
