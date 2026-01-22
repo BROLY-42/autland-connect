@@ -1,6 +1,6 @@
 import { ExternalLink } from "lucide-react";
 
-interface ProductCardProps {
+export interface ProductCardProps {
   name: string;
   description: string;
   platform: string;

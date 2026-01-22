@@ -109,6 +109,8 @@
   * {
     @apply border-border;
     appearance: auto;
+    -webkit-appearance: auto;
+    line-clamp: none;
     -webkit-line-clamp: none;
   }
 

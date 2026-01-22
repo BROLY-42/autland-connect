@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import type { Product, NewProduct } from "@/data/products";
 import productsService from "@/lib/products";
+import DEFAULT_PRODUCTS from "@/lib/products";
 
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>(() =>
@@ -27,8 +28,8 @@ export const useProducts = () => {
   }, []);
 
   const resetProducts = useCallback(() => {
-    const resetProducts = productsService.reset();
-    setProducts(resetProducts);
+    const updated = productsService.reset();
+    setProducts(updated);
   }, []);
 
   const refresh = useCallback(() => setProducts(productsService.getAll()), []);
